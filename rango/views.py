@@ -5,8 +5,15 @@ from rango.models import Page
 
 from django.http import HttpResponse
 def index(request):
-       return HttpResponse("Rango says hey there partner!  <a href='/rango/about/'>About</a>")
-
+       category_list = Category.objects.order_by('-likes')[:3]
+       pages = Page.objects.order_by('-views')[:5]
+       
+       context_dict = {}
+       context_dict['boldmessage'] = 'Crunchy, creamy, cookie, candy, cupcake!'
+       context_dict['pages'] = pages
+       context_dict['categories'] = category_list
+       # Render the response and send it back!
+       return render(request, 'rango/index.html', context=context_dict)
 
 def show_category(request, category_name_slug):
        context_dict = {}
@@ -24,4 +31,4 @@ def show_category(request, category_name_slug):
 
 def about(request):
     
-    return HttpResponse("Rango says here is the about page.  <a href='/rango/'>Index</a>")
+    return render(request, 'rango/about.html')

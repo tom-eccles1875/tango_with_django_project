@@ -5,13 +5,14 @@ from rango.models import Page
 
 from django.http import HttpResponse
 def index(request):
-       category_list = Category.objects.order_by('-likes')[:3]
+       category_list = Category.objects.order_by('-likes')[:5]
        pages = Page.objects.order_by('-views')[:5]
        
        context_dict = {}
        context_dict['boldmessage'] = 'Crunchy, creamy, cookie, candy, cupcake!'
-       context_dict['pages'] = pages
        context_dict['categories'] = category_list
+       context_dict['pages'] = pages
+       
        # Render the response and send it back!
        return render(request, 'rango/index.html', context=context_dict)
 

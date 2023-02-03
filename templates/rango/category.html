@@ -22,6 +22,12 @@
 {% else %}
 The specified category does not exist.
 {% endif %}
+<br>
+{%if category%}
+<a href="/rango/category/{{category.slug }}/add_page/">Add Page</a> <br/>
+{%else%}
+The specified category does not exist.
+{%endif%}
 
 <div>
     <body>Here is a link back to the Home Page:</body><br><a href="/rango/">Index</a>

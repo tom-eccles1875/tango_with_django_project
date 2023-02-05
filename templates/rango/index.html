@@ -1,16 +1,19 @@
-<!DOCTYPE html>
-
+{% extends 'rango/base.html' %}
 {% load staticfiles %}
-<html>
 
-<head>
-<title>Rango</title>
-</head>
+{% block title_block %}
+Homepage
+{% endblock %}
 
-<body>
+{% block body_block %}
 <h1>Rango saysss...</h1>
 <div>
-hey there partner! <br/>
+    {% if user.is_authenticated %}
+    howdy {{ user.username }}!
+    {% else %}
+    hey there partner!
+    {% endif %}
+    
 <strong>{{ boldmessage }}</strong>
 
 </div>
@@ -22,7 +25,7 @@ hey there partner! <br/>
     {% for category in categories %}
     
     <!-- The following line is changed to add an HTML hyperlink -->
-    <li><a href="/rango/category/{{ category.slug }}/">{{ category.name }}</a></li>
+    <li><a href="{% url 'rango:show_category' category.slug %}">{{ category.name }}</a></li>
     
     {% endfor %}
     </ul>
@@ -48,12 +51,8 @@ hey there partner! <br/>
 </div>
 
 <div>
-<a href="/rango/add_category/">Add a New Category</a><br />
 
-<a href="/rango/about/">About Rango</a><br />
 <img src="{% static "images/download.jfif" %}"
 alt="Picture of Rango" />
 </div>
-</body>
-
-</html>
+{% endblock %}
